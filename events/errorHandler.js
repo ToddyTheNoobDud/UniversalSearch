@@ -1,6 +1,6 @@
 import { t } from 'tasai';
 import EventEmitter from 'events';
-
+// ### The following code is experimental !!!, not tested yet ###
 export const Event = {
     name: 'errorHandler',
     CustomEvent: true,
