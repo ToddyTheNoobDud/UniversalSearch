@@ -3,7 +3,7 @@
 
 <h1 align="center"> Starting With The Handler / other stuff </h1>
 This Bot is oficially made from scratch but based on RileCraft's discord bot template [https://github.com/RileCraft/DiscordBot-Template] |
-Mostly changes made on the handler will be bug fixes, Optimizations, Faster code, etc... Everyone can use the code! no need to ask for permission, you can use it for free
+Mostly changes made on the handler will be bug fixes, Optimizations, Faster code, etc... Everyone can use the code! no need to ask for permission, you can use it for free (optional, but i would be happy if you credit me)
 
 <h1 align="center"> What will be ideia? </h1>
 
