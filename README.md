@@ -12,3 +12,7 @@ Will probaly have support for some websites like roblox (others bot have the sam
 
 <h1 align="center"> Support? </h1>
 Made in typescript, bugs fixed on nodejs, so i can say it has support for typescript and nodejs (?)
+
+<h1 align="center"> Fixed Features </h1>
+An issue i have when esm support launched on rilecraft i always got the error "Only URLs with a scheme in: file, data, and node are supported by the default ESM loader"
+so i decided to build it from scratch and fixed it (it worked for me) and along w other fixes i forgot
