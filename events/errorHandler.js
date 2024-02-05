@@ -34,9 +34,6 @@ export const Event = {
         eventEmitter.on('exit', async (error) => {
             console.log(t.brightBlack.toFunction('[exit] ') + t.bold.white.toFunction()(`Exit: ${error}`))
         });
-        eventEmitter.on('TypeError', async (error) => {
-            console.log(t.bgBrightBlack.toFunction()('[TypeError] ') + t.bold.white.toFunction()(`Type Error: ${error}`))
-        })
     }
 }
 
