@@ -103,6 +103,7 @@ export const Command = {
                     },
                     {
                         name: 'Banner URL',
+                        // Not tested, any bugs report to issues on github.
                         value: user.bannerURL({ dynamic: true, extension: 'png' || 'gif' }) ? `[Banner](${user.bannerURL({ dynamic: true, extension: 'png' || 'gif' })})` : 'No URL',
                         inline: true
                     }
