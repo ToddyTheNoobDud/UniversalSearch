@@ -9,6 +9,7 @@ export const Event = {
             // @ts-ignore
             type: ActivityType.Custom = 4
         })
+        client.user.setStatus('idle');
         console.log(`logged in ${client.user.tag}`)
     }
 }
