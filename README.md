@@ -7,7 +7,7 @@ Mostly changes made on the handler will be bug fixes, Optimizations, Faster code
 
 <h1 align="center"> What will be ideia? </h1>
 
-The bot is yet in alpha / beta and has no commands, my main ideia is to create a bot that can search everything inside discord (user info, stuff from google, etc..)
+The bot is yet in alpha / beta, my main ideia is to create a bot that can search everything inside discord (user info, stuff from google, etc..)
 Will probaly have support for some websites like roblox (others bot have the same function so why not)
 
 <h1 align="center"> Support? </h1>
