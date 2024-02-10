@@ -2,7 +2,10 @@
 // Todo: Make 2 versions (1 for users and 1 for bot), Optimize the code, Make an error handler
 // Done: Version for users, Versions for bots, Optimized Code, Crash handler [Beta] (Extra: fixed some crashes)
 // This code will only work in servers, Universal version will work on servers, dms, etc
-import { ApplicationCommandOptionType, EmbedBuilder, blockQuote } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  EmbedBuilder,
+} from "discord.js";
 
 export const Command = {
   name: "info",
@@ -39,17 +42,24 @@ export const Command = {
   run: async (client, interaction) => {
     try {
       const subcommand = interaction.options.getSubcommand();
-      if (!interaction.inGuild()) {
-        return await interaction.reply({
-          content: "This command can only be used in guilds",
-          ephemeral: true,
-        });
-      }
       if (subcommand === "server_user") {
         const user = interaction.options.getUser("user") || interaction.user;
         if (user.bot === true) {
           return await interaction.reply({
             content: "Please select a user, not a bot",
+            ephemeral: true,
+          });
+        }
+        if (!interaction.inGuild()) {
+          return await interaction.reply({
+            content: "This command can only be used in guilds",
+            ephemeral: true,
+          });
+        }
+        const userCheck = interaction.guild.members.cache.get(user.id);
+        if (!userCheck) {
+          return await interaction.reply({
+            content: "User not found on server",
             ephemeral: true,
           });
         }
@@ -68,80 +78,91 @@ export const Command = {
           TeamPseudoUser: "👨‍💼・Discord Team",
           VerifiedBot: "🤖・Verified Bot",
           VerifiedDeveloper: "👨‍💻・(early)Verified Bot Developer",
-        }
+        };
         const userFlags = user.flags.toArray() || [];
         const createdatt = (user.createdTimestamp / 1000).toFixed(0);
         const joinedat = (user.joinedTimestamp / 1000).toFixed(0); //this code don't work, don't try using it, it will return NaN
-  
+
         const embed = new EmbedBuilder()
           .setColor("Aqua")
-          .setDescription(`
+          .setDescription(
+            `
           **• Username: ** ${`\``}${user.username}${`\``}
                 **• ID: ** ${`\``}${user.id}${`\``}
           **• Discriminator: ** ${`\``}${user.discriminator}${`\``}
-          **• Avatar URL: ** [URL](${user.avatarURL({ dynamic: true, extension: 'png' })})
+          **• Avatar URL: ** [URL](${user.avatarURL({
+            dynamic: true,
+            extension: "png",
+          })})
           **• Bot: ** ${user.bot ? "Yes" : "No"}
           **• Created At: ** <t:${createdatt}>
           **• Joined At: ** Still in development
-          **• Flags: ** ${userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'None'}
-          `)
+          **• Flags: ** ${
+            userFlags.length
+              ? userFlags.map((flag) => flags[flag]).join(", ")
+              : "None"
+          }
+          `
+          )
           .setAuthor({
-              name: (`info about ${user.username}`),
-              iconURL: user.avatarURL({ dynamic: true, extension: 'png' })
+            name: `info about ${user.username}`,
+            iconURL: user.avatarURL({ dynamic: true, extension: "png" }),
           })
           .setFooter({
-              text: 'made by mushroom0162',
-              iconURL: client.user.avatarURL({ dynamic: true, extension: 'png' })
-          })
-  
+            text: "made by mushroom0162",
+            iconURL: client.user.avatarURL({ dynamic: true, extension: "png" }),
+          });
+
         await interaction.reply({ embeds: [embed] });
       } else if (subcommand === "server_bot") {
-          const bot = interaction.options.getUser("bot");
-          if (!bot.bot) {
-            return await interaction.reply({
-              content: "Please select a bot, not a user",
-              ephemeral: true,
-            });
-          }
-    
-          const embed = new EmbedBuilder()
-            .setColor("NotQuiteBlack")
-            .setAuthor({
-                name:  bot.username,
-                iconURL:  bot.avatarURL({ dynamic: true, extension: "png" })
-            }
-            )
-            .setFooter({
-                text: "made by mushroom0162",
-               iconURL: client.user.avatarURL({ dynamic: true, extension: "png" })
-            })
-            .addFields(
-              { name: "Username", value: bot.username, inline: true },
-              { name: "ID", value: bot.id, inline: true },
-              { name: "Is System", value: bot.system ? "Yes" : "No", inline: true },
-              {
-                name: "Created At",
-                value: bot.createdAt.toDateString(),
-                inline: true,
-              },
-              {
-                name: "Avatar URL",
-                value: `[Avatar URL](${bot.avatarURL({
-                  dynamic: true,
-                  extension: "png",
-                })})`,
-                inline: true,
-              },
-              {
-                name: "is a Partial",
-                value: bot.partial ? "yes" : "no",
-                inline: true,
-              }
-            );
-          await interaction.reply({ embeds: [embed] });
+        
+        if (!interaction.inGuild()) {
+          return await interaction.reply({
+            content: "This command can only be used in guilds",
+            ephemeral: true,
+          });
         }
-      } catch(error) {
-        console.log(error)
+        const bot = interaction.options.getUser("bot");
+        if (!bot.bot === true) {
+          return await interaction.reply({
+            content: "Please select a bot, not a user",
+            ephemeral: true,
+          });
+        }
+        const botCheck = interaction.guild.members.cache.get(bot.id);
+        if (!botCheck) {
+          return await interaction.reply({
+            content: "Bot not found on server",
+            ephemeral: true,
+          });
+        }
+        const createdatt = (bot.createdTimestamp / 1000).toFixed(0);
+        const embed = new EmbedBuilder()
+          .setColor("Aqua")
+          .setAuthor({
+            name: bot.username,
+            iconURL: bot.avatarURL({ dynamic: true, extension: "png" }),
+          })
+          .setFooter({
+            text: "made by mushroom0162",
+            iconURL: client.user.avatarURL({ dynamic: true, extension: "png" }),
+          }).setDescription(`
+            **• Username: ** ${`\``}${bot.username}${`\``}
+            **• ID: ** ${`\``}${bot.id}${`\``}
+             **• Discriminator: ** ${`\``}${bot.discriminator}${`\``}
+            **• Avatar URL: ** [URL](${bot.avatarURL({
+              dynamic: true,
+              extension: "png",
+            })})
+            **• Created At: ** <t:${createdatt}>
+            **• Added At: ** Still in development
+            **• Is System: ** ${bot.system ? "Yes" : "No"}
+            **• Is Partial: ** ${bot.partial ? "yes" : "no"}
+            `);
+        await interaction.reply({ embeds: [embed] });
       }
+    } catch (error) {
+      console.log(error);
     }
-  }
+  },
+};
